@@ -1,0 +1,18 @@
+<!-- Edit Quote --> 
+<template> 
+       <!--perform hardcoding with record-id="a005i00000GK4n7AAD"-->
+  <template if:true={quoteRecords} for:each={quoteRecords} for:item="qrec" for:index="index">       
+  <lightning-layout-item  key={qrec.Id}>  
+  <lightning-output-field field-name={qrec.Name}></lightning-output-field> 
+  <lightning-input type="date" name="input1" label="Start Date :" value={qrec.StartDate__c}  onchange={handleChangeinputs}></lightning-input> 
+  <lightning-input type="date" name="input2" label="End date :" value={qrec.EndDate__c} onchange={handleChangeinputs}></lightning-input> 
+  </lightning-layout-item> 
+  </template> 
+  <template if:false={quoteRecords}> 
+  <lightning-input type="date" name="input1" label="Start Date :" value={input1}  onchange={handleChangeinputs}></lightning-input> 
+  <lightning-input type="date" name="input2" label="End date :" value={input2}  onchange={handleChangeinputs}></lightning-input> 
+  </template> 
+
+  <lightning-button variant="brand" label="save" onclick={saveHandler} class="slds-p-right_xx-small"></lightning-button>
+
+  </template>

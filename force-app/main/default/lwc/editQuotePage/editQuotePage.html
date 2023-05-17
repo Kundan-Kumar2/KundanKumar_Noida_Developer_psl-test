@@ -1,0 +1,26 @@
+<!-- Edit Quote Page -->
+<template>
+ <lightning-card title="Provus Quoating App" icon-name="standard:account"> </lightning-card>
+  <!-- handle quoteTotal child Summary-->
+  <div class="slds-tabs_card">
+    <c-quote-total-summary 
+    onclick={handleAdjustButtonClick}>
+    </c-quote-total-summary>
+    
+    <!--Handle Edit Quote Child Component-->
+    <div class="slds-m-around_medium">
+      <c-edit-quote onmycustomevent={changeHandlerEvent} 
+      ></c-edit-quote>
+    </div>
+  </div>
+  <template if:true={isVisible}>
+    <c-adjust-quote-price 
+    record-id={recordId}
+    onclose={handleAdjustButtonClick}>
+    </c-adjust-quote-price>
+  </template>
+
+    <!--handle adjust Quote price child Componenet-->>
+    
+ 
+  </template>

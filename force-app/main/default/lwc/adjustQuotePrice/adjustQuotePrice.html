@@ -1,0 +1,21 @@
+<!-- Adjust Quote Price -->
+<template> 
+  <section role="dialog" tabindex="-1" class={dialogClass}> 
+    <div class="slds-modal__container"> 
+    <header class="slds-modal__header"> 
+      <h2 class="slds-modal__title">Adjust quote price</h2> 
+       </header> 
+       <div class="slds-modal__content slds-p-around_small"> 
+        <div class="slds-m-around_medium"> 
+            <p>Content goes here</p> 
+        </div> 
+            <lightning-input type="text" label="Adjusted Amount" value={adjustedAmount} onchange={Amountchangehandler} class="slds-m-around_medium"></lightning-input> 
+      </div> 
+      <footer class="slds-modal__footer">  
+      <lightning-button variant="neutral" label="cancel"  class="slds-var-m-left_x-small" onclick={handlecancelClick}></lightning-button> 
+      <lightning-button variant="brand" label="Save"  class="slds-m-left_x-small"    onclick={handleSaveClick}></lightning-button> 
+    </footer> 
+    </div> 
+    </section> 
+      <div class={backdropClass}></div>   
+</template>
