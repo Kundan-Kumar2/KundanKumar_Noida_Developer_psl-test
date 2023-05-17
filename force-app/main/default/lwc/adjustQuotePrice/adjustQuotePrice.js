@@ -5,53 +5,64 @@ import LightningModal from 'lightning/modal';
  
 export default class AdjustQuotePrice extends LightningElement { 
   @api recordId;
-  @api adjustedAmount;
-  @track amount;
-  
+  //@api quoteId;
+  @track dialogClass = '';
+  @track adjustedAmount;
+  @api amount;
   adjustedAmountLabel = "Adjusted Amount";
   adjustedAmount =0;
    
 
-  Amountchangehandler(event){ 
+  amountchangehandler(event){ 
    this.adjustedAmount = event.target.value;
-   console.log('15 this.adjustedAmount', this.adjustedAmount)
+   console.log(' 15 this.adjustedAmount', this.adjustedAmount);
   } 
   
   
-    handlecancelClick(){
-    this.dispatchEvent(new CustomEvent('close'));
-    }
+  handlecancelClick(){
+  this.dispatchEvent(new CustomEvent('close'));
+  }
 
-   closeModal() {
+  closeModal() {
     this.AdjustedAmount = '';
     this.dialogClass = '';
-
-   }
+  }
   
-   handleSaveClick(event) {
-    console.log('20 this.adjustedAmount', this.adjustedAmount);
-    updateAmount({ adjustedAmount: this.AdjustedAmount })
+  handleSaveClick(event) {
+   console.log(' 20 this.adjustedAmount', this.adjustedAmount);
+    updateAmount({ amount: this.adjustedAmount })
        .then(result => {
           console.log('result23 ', result);
-          this.showMessage('SAVED', 'adjustedAmount Updated', 'success')
-       })
-       .catch(error => {
-           this.showErrorToast('An error occurred while updating quote amount');
-           console.error('25 error', error);
-       });
-   }
-   adjustedAmountHandler(){
-    console.log('inside in adjustedAmountHandler');
+          this.showSuccessToast('Adjusted amount updated successfully.');
+        this.dispatchEvent(new CustomEvent('close'));
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        this.showErrorToast('An error occurred while updating the quote amount.');
+      });
    }
 
-  /*showSuccessToast(message) {
+   showSuccessToast(message) {
     const event = new ShowToastEvent({
       title: 'Success',
       message: message,
-      variant: 'success',
-  });
-  this.dispatchEvent(event);
-  }*/
+      variant: 'success'
+    });
+    this.dispatchEvent(event);
+  }
+
+  showErrorToast(message) {
+    const event = new ShowToastEvent({
+      title: 'Error',
+      message: message,
+      variant: 'error'
+    });
+    this.dispatchEvent(event);
+  }
+
+  /* adjustedAmountHandler(){
+    console.log('inside in adjustedAmountHandler');
+   }*/
 
   connectedCallback() {
     this.dialogClass = 'slds-modal slds-fade-in-open';

@@ -12,10 +12,13 @@
       <c-edit-quote onmycustomevent={changeHandlerEvent} 
       ></c-edit-quote>
     </div>
+    
+  <lightning-button variant="brand" label="save" title="save" onclick={saveHandler} class="slds-p-right_xx-small"></lightning-button>
+
   </div>
   <template if:true={isVisible}>
     <c-adjust-quote-price 
-    record-id={recordId}
+    record-id={recordId} 
     onclose={handleAdjustButtonClick}>
     </c-adjust-quote-price>
   </template>

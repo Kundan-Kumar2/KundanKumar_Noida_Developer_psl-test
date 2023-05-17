@@ -9,11 +9,11 @@
         <div class="slds-m-around_medium"> 
             <p>Content goes here</p> 
         </div> 
-            <lightning-input type="text" label="Adjusted Amount" value={adjustedAmount} onchange={Amountchangehandler} class="slds-m-around_medium"></lightning-input> 
+            <lightning-input type="number" name="name" label={adjustedAmountLabel} value={adjustedAmount} onchange={amountchangehandler} class="slds-m-around_medium"></lightning-input> 
       </div> 
       <footer class="slds-modal__footer">  
-      <lightning-button variant="neutral" label="cancel"  class="slds-var-m-left_x-small" onclick={handlecancelClick}></lightning-button> 
-      <lightning-button variant="brand" label="Save"  class="slds-m-left_x-small"    onclick={handleSaveClick}></lightning-button> 
+      <lightning-button variant="neutral" label="cancel" title="close"   onclick={handlecancelClick} class="slds-var-m-left_x-small"></lightning-button> 
+      <lightning-button variant="brand" label="Save" title="titlename"   onclick={handleSaveClick} class="slds-m-left_x-small"></lightning-button> 
     </footer> 
     </div> 
     </section> 

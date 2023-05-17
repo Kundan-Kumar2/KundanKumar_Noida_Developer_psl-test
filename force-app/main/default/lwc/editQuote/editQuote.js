@@ -4,7 +4,6 @@ import saveValues from '@salesforce/apex/QuoteDto.saveValues';
 import getQueRec from '@salesforce/apex/QuoteDto.getQueRec'; 
  
 export default class EditQuote extends LightningElement { 
-  
   @api recordId; 
   @api sDate; 
   @api eDate;
@@ -12,6 +11,8 @@ export default class EditQuote extends LightningElement {
  
   @track quoteRecords; 
   @track error; 
+  
+  
   @track input1; 
   @track input2; 
  
@@ -29,10 +30,9 @@ export default class EditQuote extends LightningElement {
       console.log('24 this.error ', this.error); 
     this.quoteRecords = undefined; 
   }) 
+  } 
  
-} 
- 
- // @track input; 
+ // handler change input; 
    handleChangeinputs(event) {    
      event.preventDefault(); 
      if (event.target.name == 'input1') { 
@@ -49,24 +49,6 @@ export default class EditQuote extends LightningElement {
  
   } 
 
-  saveHandler(event) { 
-    console.log(' inside in handleClick editQuote'); 
-    saveValues({ sDate: this.newValue1, eDate: this.newValue2 }) 
-      .then(result => { 
-        console.log('Result 34 ', result); 
-        this.showMessage('SAVED', 'Saved Quote Details', 'success') 
-      }) 
-      .catch(error => { 
-        console.error('Error: 37 ', error); 
-        this.showMessage('Error', 'Couldn\'t Update Quote, Contact Admin', 'error') 
-      }); 
-  }
-  showMessage(title, message, variant) { 
-    this.dispatchEvent( 
-      new ShowToastEvent({ 
-        title, message, variant 
-      }) 
-    ); 
-  } 
+  
  
 }
