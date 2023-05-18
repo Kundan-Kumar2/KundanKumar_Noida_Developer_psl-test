@@ -4,6 +4,6 @@ export default class QuoteTotalSummary extends LightningElement {
 
     OpenModal()
     {
-    this.dispatchEvent(new CustomEvent('Buttonclick'));
+    this.dispatchEvent(new CustomEvent('buttonclick'));
     }
 }

@@ -5,7 +5,7 @@ import LightningModal from 'lightning/modal';
  
 export default class AdjustQuotePrice extends LightningElement { 
   @api recordId;
-  //@api quoteId;
+ // @api quoteId or  @api objectApiId;
   @track dialogClass = '';
   @track adjustedAmount;
   @api amount;
