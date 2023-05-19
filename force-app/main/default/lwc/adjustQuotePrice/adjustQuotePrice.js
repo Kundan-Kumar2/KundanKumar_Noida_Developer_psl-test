@@ -5,7 +5,6 @@ import LightningModal from 'lightning/modal';
  
 export default class AdjustQuotePrice extends LightningElement { 
   @api recordId;
- // @api quoteId or  @api objectApiId;
   @track dialogClass = '';
   @track adjustedAmount;
   @api amount;
@@ -30,7 +29,7 @@ export default class AdjustQuotePrice extends LightningElement {
   
   handleSaveClick(event) {
    console.log(' 20 this.adjustedAmount', this.adjustedAmount);
-    updateAmount({ amount: this.adjustedAmount })
+    updateAmount({  amount: this.adjustedAmount })
        .then(result => {
           console.log('result23 ', result);
           this.showSuccessToast('Adjusted amount updated successfully.');

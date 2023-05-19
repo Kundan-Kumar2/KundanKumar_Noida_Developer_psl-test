@@ -2,8 +2,8 @@ import { LightningElement, api, track } from "lwc";
 import saveValues from '@salesforce/apex/QuoteDto.saveValues'; 
 import { ShowToastEvent } from 'lightning/platformShowToastEvent'; 
 export default class EditQuotePage extends LightningElement {
- // @api recordId;
-  @api recordId;
+  @api objectApiId;;
+  @api quoteId;
   isVisible=false;
   
   @api amount;

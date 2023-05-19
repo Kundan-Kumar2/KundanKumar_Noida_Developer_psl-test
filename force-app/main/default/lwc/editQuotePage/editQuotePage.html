@@ -18,7 +18,8 @@
   </div>
   <template if:true={isVisible}>
     <c-adjust-quote-price 
-    record-id={recordId} 
+    record-id={objectApiId}
+    
     onclose={handleAdjustButtonClick}>
     </c-adjust-quote-price>
   </template>
@@ -27,3 +28,4 @@
     
  
   </template>
+  <!--record-id={recordId}-->
