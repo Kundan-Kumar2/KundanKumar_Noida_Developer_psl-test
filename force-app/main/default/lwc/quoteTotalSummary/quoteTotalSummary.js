@@ -2,8 +2,10 @@ import { LightningElement } from "lwc";
 
 export default class QuoteTotalSummary extends LightningElement {
 
-    OpenModal()
-    {
-    this.dispatchEvent(new CustomEvent('buttonclick'));
-    }
+
+handleAdjustAmt(){
+        this.dispatchEvent(new CustomEvent("openmodal"));
+      
+} 
+
 }

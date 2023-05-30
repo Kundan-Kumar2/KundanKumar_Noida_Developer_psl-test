@@ -1,16 +1,16 @@
-<!-- Edit Quote --> 
-<template> 
-       <!--perform hardcoding with record-id="a005i00000GK4n7AAD"-->
-  <template if:true={quoteRecords} for:each={quoteRecords} for:item="qrec" for:index="index">       
-  <lightning-layout-item  key={qrec.Id}>  
-  <lightning-output-field field-name={qrec.Name}></lightning-output-field> 
-  <lightning-input type="date" name="input1" label="Start Date :" value={qrec.StartDate__c} onchange={handleChangeinputs}></lightning-input> 
-  <lightning-input type="date" name="input2" label="End date :" value={qrec.EndDate__c} onchange={handleChangeinputs}></lightning-input> 
-  </lightning-layout-item> 
-  </template> 
-  <template if:false={quoteRecords}> 
-  <lightning-input type="date" name="input1" label="Start Date :" value={input1}  onchange={handleChangeinputs}></lightning-input> 
-  <lightning-input type="date" name="input2" label="End date :" value={input2}  onchange={handleChangeinputs}></lightning-input> 
-  </template> 
+<!-- Edit Quote -->
+<template>
+  <lightning-layout multiple-rows>
+    <lightning-layout-item size="4">
+      <h3 class="slds-page-header__title">Welcome to quote: {qname}</h3>
+      <lightning-input type="date" name="Start Date" label="Start Date" value={qstartDate}
+        onchange={startdateChangeHandler}></lightning-input>
+      <lightning-input type="date" name="End Date" label="End Date" value={qendDate} onchange={enddateChangeHandler}
+        class="slds-m-bottom_small"></lightning-input>
+      <lightning-button variant="brand" label="Save" title="Save Dates" onclick={updateQuoteDates}
+        class="slds-m-top_medium"></lightning-button>
+    </lightning-layout-item>
+  </lightning-layout>
 
-  </template>
+  
+</template>

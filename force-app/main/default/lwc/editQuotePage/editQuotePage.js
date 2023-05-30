@@ -1,52 +1,77 @@
-import { LightningElement, api, track } from "lwc";
-import saveValues from '@salesforce/apex/QuoteDto.saveValues'; 
-import { ShowToastEvent } from 'lightning/platformShowToastEvent'; 
+import { LightningElement, api, track} from "lwc";
+import lightningModalLWC from 'c/adjustQuotePrice';
+import updateQuoteData from "@salesforce/apex/QuoteObjectHandler.updateQuoteData";
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+
 export default class EditQuotePage extends LightningElement {
-  @api objectApiId;;
+  @api recordId;
+  @api objectApiId;
   @api quoteId;
-  isVisible=false;
   
-  @api amount;
-  @track newValue1; 
-  @track newValue2;
-
-  handleAdjustButtonClick(){
-    //Logic to handle the Adjust Button Click
-    this.isVisible=!this.isVisible;
-  }
-
-  // @track newrecordId; 
-  changeHandlerEvent(event) { 
-     
-    console.log('Inside in changeHandlerevt'); 
-     
-    // this.newrecordId = event.detail.recordId; 
-    this.newValue1 = event.detail.input1; 
-    this.newValue2 = event.detail.input2; 
- 
-    // console.log('  this.newrecordId  ', this.newrecordId); 
-    console.log('   this.newValue1  ', this.newValue1); 
-    console.log('  this.newValue2  ', this.newValue2); 
- 
+  @track showModal=false;
+  adjustedAmount =0;
+  
+  handleOpenModal(){
+    this.showModal = true;
   }
   
-  saveHandler(event) { 
-    console.log(' inside in handleClick editQuote'); 
-    saveValues({ sDate: this.newValue1, eDate: this.newValue2 }) 
-      .then(result => { 
-        console.log('Result 34 ', result); 
-        this.showMessage('SAVED', 'Saved Quote Details', 'success') 
-      }) 
-      .catch(error => { 
-        console.error('Error: 37 ', error); 
-        this.showMessage('Error', 'Couldnot Update Quote, Contact Admin', 'error') 
-      }); 
+  // quote object to hold the changed data
+  quoteData = {
+    Id: "",
+    TotalQuotedAmount__c: ''
+  };
+
+  async handleUpdateAmount(event){
+    const{amount, action} =event.detail;
+    this.adjustedAmount =amount;
+
+    if(action === "Save"){
+      console.log("saving adjusted amount:", this.adjustedAmount);
+
+      //prepare the Qutoe data object with updated quoted amount
+
+      this.quoteData.Id = this.recordId;
+      this.quoteData.TotalQuotedAmount__c = this.adjustedAmount;
+
+      try{
+        //call the apex method to update the quote record
+        await updateQuoteData({quoteDTL: JSON.stringify(this.quoteData), operationType: 'update'});
+
+        //show success toast message
+        this.showToast('Success', 'Quoted amount updated successfully.', 'success');
+      }catch(error){
+        //show error toast message
+        this.showToast('Error', 'Failed to update Quoted amount.', 'error');
+        console.log('Error:', error);
+      }
+    }
+
+    this.showModal =false;
+    }
+  
+
+
+  
+  /*handleUpdateAmount(event){
+    const {amount, action } =event.detail;
+    this.adjustedAmount =amount;
+
+    if(action == "save"){
+      console.log("Saving adjusted amount:", this.adjustedAmount);
+      
+      //show success toast message
+      this.showToast('Success', 'Adjusted amount Saved Successfully,', 'Success');
+    }
+    this.showModal=false;
+  } */
+
+
+  showToast(title, message, variant) {
+    const toastEvent = new ShowToastEvent({
+      title,
+      message,
+      variant
+    });
+    this.dispatchEvent(toastEvent);
   }
-  showMessage(title, message, variant) { 
-    this.dispatchEvent( 
-      new ShowToastEvent({ 
-        title, message, variant 
-      }) 
-    ); 
-  } 
 }

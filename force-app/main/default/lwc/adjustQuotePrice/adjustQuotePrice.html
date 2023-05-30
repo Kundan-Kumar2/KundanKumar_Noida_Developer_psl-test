@@ -1,21 +1,21 @@
 <!-- Adjust Quote Price -->
-<template> 
-  <section role="dialog" tabindex="-1" class={dialogClass}> 
-    <div class="slds-modal__container"> 
-    <header class="slds-modal__header"> 
-      <h2 class="slds-modal__title">Adjust quote price</h2> 
-       </header> 
-       <div class="slds-modal__content slds-p-around_small"> 
-        <div class="slds-m-around_medium"> 
-            <p>Content goes here</p> 
-        </div> 
-            <lightning-input type="number" name="name" label={adjustedAmountLabel} value={adjustedAmount} onchange={amountchangehandler} class="slds-m-around_medium"></lightning-input> 
-      </div> 
-      <footer class="slds-modal__footer">  
-      <lightning-button variant="neutral" label="cancel" title="close"   onclick={handlecancelClick} class="slds-var-m-left_x-small"></lightning-button> 
-      <lightning-button variant="brand" label="Save" title="titlename"   onclick={handleSaveClick} class="slds-m-left_x-small"></lightning-button> 
-    </footer> 
-    </div> 
-    </section> 
-      <div class={backdropClass}></div>   
-</template>
+<template>
+    <template lwc:if={showAdjustDialog}>
+    <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+      class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container">
+        <div class="slds-modal__header">
+          <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Adjust Quote Price</h1>
+        </div>
+        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+          <lightning-input type="number" name="AdjustedAmount" label={adjustedAmountLabel} step="any" onchange={amountChangeHandler}></lightning-input>
+        </div>
+        <div class="slds-modal__footer">
+          <lightning-button label="Cancel" title="Cancel" onclick={closeModal} class="slds-m-left_x-small"></lightning-button>
+          <lightning-button variant="brand" label="Save" title="Save" onclick={closeModal} class="slds-m-left_x-small"></lightning-button>
+        </div>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+  </template>
