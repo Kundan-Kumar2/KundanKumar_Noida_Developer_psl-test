@@ -1,6 +1,6 @@
 import { LightningElement, api, track} from "lwc";
 import lightningModalLWC from 'c/adjustQuotePrice';
-import updateQuoteData from "@salesforce/apex/QuoteObjectHandler.updateQuoteData";
+import updateAmount from "@salesforce/apex/QuoteObjectHandler.updateAmount";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class EditQuotePage extends LightningElement {
@@ -25,7 +25,7 @@ export default class EditQuotePage extends LightningElement {
     const{amount, action} =event.detail;
     this.adjustedAmount =amount;
 
-    if(action === "Save"){
+    if(action == "Save"){
       console.log("saving adjusted amount:", this.adjustedAmount);
 
       //prepare the Qutoe data object with updated quoted amount
@@ -35,8 +35,9 @@ export default class EditQuotePage extends LightningElement {
 
       try{
         //call the apex method to update the quote record
-        await updateQuoteData({quoteDTL: JSON.stringify(this.quoteData), operationType: 'update'});
-
+       // await updateAmount({quoteDTL: JSON.stringify(this.quoteData), operationType: 'update'});
+        await updateAmount({amount: this.adjustedAmount, recId: this.recordId });
+        console.log('this.recordId');
         //show success toast message
         this.showToast('Success', 'Quoted amount updated successfully.', 'success');
       }catch(error){
@@ -48,6 +49,16 @@ export default class EditQuotePage extends LightningElement {
 
     this.showModal =false;
     }
+    showToast(title, message, variant) {
+      const toastEvent = new ShowToastEvent({
+        title,
+        message,
+        variant
+      });
+      this.dispatchEvent(toastEvent);
+    }
+  }
+  
   
 
 
@@ -63,15 +74,5 @@ export default class EditQuotePage extends LightningElement {
       this.showToast('Success', 'Adjusted amount Saved Successfully,', 'Success');
     }
     this.showModal=false;
-  } */
-
-
-  showToast(title, message, variant) {
-    const toastEvent = new ShowToastEvent({
-      title,
-      message,
-      variant
-    });
-    this.dispatchEvent(toastEvent);
-  }
-}
+  }*/ 
+  
